@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#Find files of X cmin old and move to current dir.
+
+# trap ctrl-c and call ctrl_c() to kill forked functions
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM
+
+#Ask for cmin time to use and find files
+read -p 'mv files of X mins old (Default 10) ' cminutes
+
+if [ -z $cminutes ];
+	then cminutes=10
+fi
+
+sudo find $HOME/*ownloads/ -type f -cmin -$cminutes
+
+#Confirm results
+read -p 'Are these the correct files? Y/y of N/n ' yesno
+
+#If logic to determine how to proceed. May need to take out the sudo.
+if [ $yesno = "Y" ] || [ $yesno = "y" ];
+	then sudo find $HOME/*ownloads/ -type f -cmin -$cminutes -exec mv -v -t ./ {} +;
+	else echo "Try again with another min duration"
+	exit
+fi 
+
