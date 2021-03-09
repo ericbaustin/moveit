@@ -15,7 +15,7 @@ fi
 sudo find $HOME/*ownloads/ -type f -cmin -$cminutes
 
 #Confirm results
-read -p 'Are these the correct files? Y/y of N/n ' yesno
+read -p 'Are these the correct files? Y/y or N/n ' yesno
 
 #If logic to determine how to proceed. May need to take out the sudo.
 if [ $yesno = "Y" ] || [ $yesno = "y" ];
